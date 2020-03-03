@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "777516394442",
+    "firebase_url": "https://music-rater22.firebaseio.com",
+    "project_id": "music-rater22",
+    "storage_bucket": "music-rater22.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777516394442:android:93e09a619af9292b13d133",
+        "android_client_info": {
+          "package_name": "com.example.music_rater"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "777516394442-5l9vpn08o2jojg08acvfqqjoth0d8psn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.music_rater",
+            "certificate_hash": "992a8350e68c4697c546fa9f6838b8e5f24f6875"
+          }
+        },
+        {
+          "client_id": "777516394442-npsje1ngn6ub847l49qe5k5ab996t421.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtFcn-_xfMKBf3Nk1OmJyFpBk2tWDgd44"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "777516394442-npsje1ngn6ub847l49qe5k5ab996t421.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
