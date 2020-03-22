@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Music Rater',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
+        brightness: Brightness.dark
       ),
       darkTheme: ThemeData.dark(),
       home: _getLandingPage(),

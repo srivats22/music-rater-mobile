@@ -2,9 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:music_rater/Screens/Account.dart';
 import 'package:music_rater/Screens/addMusic.dart';
-import 'package:music_rater/landing.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
@@ -16,6 +15,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  TextEditingController image, musicName, artistName, musicLink;
+  bool _isLiked = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    image = new TextEditingController();
+    musicName = new TextEditingController();
+    artistName = new TextEditingController();
+    musicLink = new TextEditingController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -33,19 +44,20 @@ class _HomeState extends State<Home> {
                       'Home',
                       style: GoogleFonts.googleSans(
                           textStyle:
-                          TextStyle(color: Colors.white, fontSize: 40)),
+                          TextStyle(fontSize: 40)),
                     ),
                   ),
                   Expanded(
                       child: GestureDetector(
-                        onTap: _showAccount,
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Account()));
+                        },
                         child: Align(
                             alignment: Alignment.topRight,
                             child: Padding(
                               padding: EdgeInsets.only(right: 20, top: 20),
                               child: Icon(
                                 Icons.account_circle,
-                                color: Colors.white,
                                 size: 40,
                               ),
                             )),
@@ -59,58 +71,230 @@ class _HomeState extends State<Home> {
                   if(!snapshot.hasData){
                     return Center(child: CircularProgressIndicator(),);
                   }
-                  return new ListView(
+                  return Expanded(
+                    child: ListView(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
+                    padding: EdgeInsets.only(bottom: 100),
                     children: snapshot.data.documents
                         .map((DocumentSnapshot document) {
-                      return new Padding(
-                          padding: EdgeInsets.only(left: 30, right: 30),
-                        child: Card(
-                          color: Color.fromRGBO(136, 255, 255, 1),
-                          child: ListTile(
-                            onTap: () => showDialog(context: context,
-                            child: AlertDialog(
-                              content: Container(
-                                height: 250,
-                                child: Column(
+                          //no image provided by user
+                          if(document['image'].toString().isEmpty){
+                            return new Container(
+                              child: new Column(
+                                children: <Widget>[
+                                  Icon(Icons.album, size: 100, color: Colors.white,),
+                                  SizedBox(height: 5,),
+                                  Text(document['musicName'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                  SizedBox(height: 5,),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      FlatButton(
+                                      onPressed: () async{
+                                        Firestore.instance.runTransaction((transaction) async {
+                                          DocumentSnapshot freshSnap =
+                                          await transaction.get(
+                                              document
+                                                  .reference);
+                                          await transaction
+                                              .update(freshSnap
+                                              .reference, {
+                                            'likes': freshSnap['likes'] +
+                                                1,
+                                          }).whenComplete(() => showDialog(
+                                              context: (context),
+                                              child: AlertDialog(
+                                                content: Container(
+                                                  height: 100,
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      Text('You Liked the: ' + document['musicName']),
+                                                      OutlineButton(
+                                                        onPressed: (){
+                                                          Navigator.pop(context);
+                                                        },
+                                                        child: Text('Close'),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                          ));
+                                        });
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Icon(Icons.favorite, color: Colors.red,),
+                                          Text('Likes: ' + document['likes'].toString(), style: GoogleFonts.googleSans(fontSize: 20),),
+                                        ],
+                                      ),
+                                    ),
+                                      SizedBox(width: 10,),
+                                      RaisedButton(
+                                        onPressed: () => showDialog(
+                                            context: context,
+                                            child: new AlertDialog(
+                                              content: new Container(
+                                                  height: 300,
+                                                  child: new Center(
+                                                    child: new Column(
+                                                      children: <Widget>[
+                                                        Icon(Icons.album, size: 100,),
+                                                        SizedBox(height: 5,),
+                                                        Text(document['musicName'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                                        SizedBox(height: 5,),
+                                                        Text(document['artistName'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                                        SizedBox(height: 5,),
+                                                        Text(document['genre'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                                        SizedBox(height: 5,),
+                                                        ButtonBar(
+                                                          alignment: MainAxisAlignment.center,
+                                                          children: <Widget>[
+                                                            FloatingActionButton.extended(
+                                                              heroTag: 'Play Music',
+                                                              onPressed: (){
+                                                                var url = document['musicLink'];
+                                                                if (canLaunch(url) != null) {
+                                                                  launch(url);
+                                                                } else {
+                                                                  throw 'Could not launch $url';
+                                                                }
+                                                              },
+                                                              label: Text('Play'),
+                                                              icon: Icon(Icons.play_circle_filled),),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                              ),
+                                            )
+                                        ),
+                                        child: Text('More Info'),
+                                      ),],
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 50, right: 50),
+                                    child: Divider(thickness: 1, color: Colors.white,),
+                                  )
+                                ],
+                              ),
+                            );
+                          }
+                          //image provided by  user
+                          var docId = snapshot.data;
+                          return new Container(
+                            child: new Column(
+                              children: <Widget>[
+                                CircleAvatar(
+                                  backgroundImage: NetworkImage(document['image']),
+                                  radius: 50,
+                                ),
+                                SizedBox(height: 5,),
+                                Text(document['musicName'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                SizedBox(height: 5,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    Icon(Icons.play_circle_filled),
-                                    Text(document['musicName'], style: GoogleFonts.googleSans(),),
-                                    SizedBox(height: 5,),
-                                    Text(document['artistName'], style: GoogleFonts.googleSans(),),
-                                    SizedBox(height: 5,),
-                                    Text(document['likes'].toString(), style: GoogleFonts.googleSans(),),
-                                    SizedBox(height: 5,),
-                                    FloatingActionButton.extended(onPressed: (){
-                                      var url = document['musicLink'];
-                                      if (canLaunch(url) != null) {
-                                       launch(url);
-                                      } else {
-                                      throw 'Could not launch $url';
-                                      }
-                                       },
-                                      label: Text('Play'),
-                                      icon: Icon(Icons.play_circle_filled),),
-                                    SizedBox(height: 5,),
-                                    FloatingActionButton.extended(onPressed: (){
-                                      document.reference.updateData({
-                                        'likes': document['likes'] + 1
+                                    FlatButton(
+                                    onPressed: () async{
+                                      Firestore.instance.runTransaction((transaction) async {
+                                        DocumentSnapshot freshSnap =
+                                        await transaction.get(
+                                            document
+                                                .reference);
+                                        await transaction
+                                            .update(freshSnap
+                                            .reference, {
+                                          'likes': freshSnap['likes'] +
+                                              1,
+                                        }).whenComplete(() => showDialog(
+                                            context: (context),
+                                            child: AlertDialog(
+                                              content: Container(
+                                                height: 100,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Text('You Liked the: ' + document['musicName']),
+                                                    OutlineButton(
+                                                      onPressed: (){
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Text('Close'),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                        ));
                                       });
                                     },
-                                      label: Text('Like'),
-                                      icon: Icon(Icons.thumb_up),)
-                                  ],
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Icon(Icons.favorite, color: Colors.red,),
+                                        Text('Likes: ' + document['likes'].toString(), style: GoogleFonts.googleSans(fontSize: 20),),
+                                      ],
+                                    ),
+                                  ),
+                                    SizedBox(width: 10,),
+                                    RaisedButton(
+                                      onPressed: () => showDialog(
+                                          context: context,
+                                          child: new AlertDialog(
+                                            content: new Container(
+                                                height: 300,
+                                                child: new Center(
+                                                  child: new Column(
+                                                    children: <Widget>[
+                                                      CircleAvatar(
+                                                        backgroundImage: NetworkImage(document['image']),
+                                                        radius: 50,
+                                                      ),
+                                                      SizedBox(height: 5,),
+                                                      Text(document['musicName'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                                      SizedBox(height: 5,),
+                                                      Text(document['artistName'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                                      SizedBox(height: 5,),
+                                                      Text(document['genre'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                                      SizedBox(height: 5,),
+                                                      ButtonBar(
+                                                        alignment: MainAxisAlignment.center,
+                                                        children: <Widget>[
+                                                          FloatingActionButton.extended(
+                                                            heroTag: 'Play Music',
+                                                            onPressed: (){
+                                                              var url = document['musicLink'];
+                                                              if (canLaunch(url) != null) {
+                                                                launch(url);
+                                                              } else {
+                                                                throw 'Could not launch $url';
+                                                              }
+                                                            },
+                                                            label: Text('Play'),
+                                                            icon: Icon(Icons.play_circle_filled),),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                            ),
+                                          )
+                                      ),
+                                      child: Text('More Info'),
+                                    ),],
                                 ),
-                              )
-                            )),
-                            leading: Icon(Icons.album, color: Colors.black,),
-                            title: Text(document['musicName'], style: GoogleFonts.googleSans(textStyle: TextStyle(color: Colors.black)),),
-                            subtitle: Text(document['artistName'] + '\nLikes: ' + document['likes'].toString(), style: GoogleFonts.googleSans(textStyle: TextStyle(color: Colors.black)),),
-                          ),
-                        ),
-                      );
+                                Padding(
+                                  padding: EdgeInsets.only(left: 50, right: 50),
+                                  child: Divider(thickness: 1, color: Colors.white,),
+                                )
+                              ],
+                            ),
+                          );
                     }).toList(),
+                  ),
                   );
                 },
               )
@@ -118,6 +302,7 @@ class _HomeState extends State<Home> {
           ),
         ),
         floatingActionButton: FloatingActionButton.extended(
+          heroTag: 'Add Music',
           onPressed: (){
             Navigator.push(context, MaterialPageRoute(builder: (context) => AddMusic()));
           },
@@ -134,90 +319,5 @@ class _HomeState extends State<Home> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
-  }
-
-  //ToDO: add privacy and terms of use
-  _showAccount() async {
-    await showDialog<String>(
-        context: context,
-        child: AlertDialog(
-            contentPadding: const EdgeInsets.all(16.0),
-            content: Container(
-              height: 250,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(30)),
-              ),
-              child: Column(
-                children: <Widget>[
-                  Icon(
-                    Icons.account_circle,
-                    size: 50,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FutureBuilder(
-                    future: FirebaseAuth.instance.currentUser(),
-                    builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
-                      if (snapshot.hasData) {
-                        String email = snapshot.data.email;
-                        return Text(
-                          email,
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.googleSans(
-                              textStyle: TextStyle(fontSize: 20)),
-                        );
-                      }
-                      return CircularProgressIndicator();
-                    },
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  OutlineButton(
-                    onPressed: () {
-                      FirebaseAuth.instance.signOut().whenComplete(() {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) => Landing()));
-                      });
-                    },
-                    child: Text(
-                      'Sign Out',
-                      style: GoogleFonts.roboto(),
-                    ),
-                    color: Colors.white,
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                  Divider(
-                    color: Colors.white,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: null,
-                        child: Text(
-                          'Privacy ',
-                          style: GoogleFonts.googleSans(),
-                        ),
-                      ),
-                      Text(
-                        ' . ',
-                        style: GoogleFonts.googleSans(),
-                      ),
-                      GestureDetector(
-                        onTap: null,
-                        child: Text(
-                          ' Terms of use',
-                          style: GoogleFonts.googleSans(),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            )));
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:music_rater/Auth/ForgotPassword.dart';
 import 'package:music_rater/Screens/homescreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -34,16 +36,14 @@ class _LandingState extends State<Landing> {
               children: <Widget>[
                 RaisedButton(
                   onPressed: _loginForm,
+                  color: Colors.blue,
                   child: Text('Login'),
                 ),
                 RaisedButton(
+                  color: Colors.blue,
                   onPressed: _createAccountForm,
                   child: Text('Create Account'),
                 ),
-                RaisedButton(
-                  onPressed: () {},
-                  child: Text('Google Signin'),
-                )
               ],
             ),
           ),
@@ -85,6 +85,15 @@ class _LandingState extends State<Landing> {
                 onSaved: (input) => _password = input,
                 obscureText: true,
               ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: FlatButton(
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));
+                  },
+                  child: Text('Forgot Password?', style: GoogleFonts.googleSans(),),
+                ),
+              )
             ],
           ),
         ),
@@ -153,7 +162,8 @@ class _LandingState extends State<Landing> {
       _formKey.currentState.save();
       try {
         await FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: _email, password: _password);
+            .signInWithEmailAndPassword(email: _email, password: _password)
+        .whenComplete(() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Home())));
         Fluttertoast.showToast(
             msg: "Login Successful",
             toastLength: Toast.LENGTH_SHORT,
@@ -162,8 +172,6 @@ class _LandingState extends State<Landing> {
             backgroundColor: Colors.black,
             textColor: Colors.white,
             fontSize: 16.0);
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (BuildContext context) => Home()));
       } catch (e) {
         Fluttertoast.showToast(
             msg: e.toString(),
