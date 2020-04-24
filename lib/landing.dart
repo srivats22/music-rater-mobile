@@ -67,6 +67,7 @@ class _LandingState extends State<Landing> {
                   }
                   return null;
                 },
+                autofocus: true,
                 decoration: InputDecoration(
                   labelText: 'Email',
                 ),
@@ -124,6 +125,7 @@ class _LandingState extends State<Landing> {
                   }
                   return null;
                 },
+                autofocus: true,
                 decoration: InputDecoration(
                   labelText: 'Email',
                 ),
@@ -161,9 +163,8 @@ class _LandingState extends State<Landing> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       try {
-        await FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: _email, password: _password)
-        .whenComplete(() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Home())));
+        await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
         Fluttertoast.showToast(
             msg: "Login Successful",
             toastLength: Toast.LENGTH_SHORT,

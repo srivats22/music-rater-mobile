@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:777516394442:android:93e09a619af9292b13d133",
         "android_client_info": {
-          "package_name": "com.example.music_rater"
+          "package_name": "com.app.music_rater"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "777516394442-5l9vpn08o2jojg08acvfqqjoth0d8psn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.music_rater",
+            "package_name": "com.app.music_rater",
             "certificate_hash": "992a8350e68c4697c546fa9f6838b8e5f24f6875"
           }
         },

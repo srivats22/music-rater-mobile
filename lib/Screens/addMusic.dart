@@ -54,12 +54,13 @@ class _AddMusicState extends State<AddMusic>{
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                //Album Cover
                 Padding(
                   padding: EdgeInsets.only(left: 30, right: 30, top: 10),
                   child: TextFormField(
                     autofocus: true,
                     decoration: InputDecoration(
-                      hintText: 'Album Cover (Optional)',
+                      labelText: 'Album Cover (Optional)',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(
@@ -72,11 +73,12 @@ class _AddMusicState extends State<AddMusic>{
                     controller: image,
                   ),
                 ),
+                //Music Name
                 Padding(
                     padding: EdgeInsets.only(left: 30, right: 30, top: 10),
                     child: TextFormField(
                       decoration: InputDecoration(
-                      hintText: 'Music Name',
+                      labelText: 'Music Name',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(
@@ -89,12 +91,13 @@ class _AddMusicState extends State<AddMusic>{
                     controller: musicName,
                   ),
                 ),
+                //Genre
                 Padding(
                   padding: EdgeInsets.only(left: 30, right: 30, top: 10),
                   child: TextFormField(
                     autofocus: true,
                     decoration: InputDecoration(
-                      hintText: 'Music Genre',
+                      labelText: 'Music Genre',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(
@@ -107,12 +110,13 @@ class _AddMusicState extends State<AddMusic>{
                     controller: genre,
                   ),
                 ),
+                //Artist Name
                 Padding(
                     padding: EdgeInsets.only(left: 30, right: 30, top: 10),
                     child: TextFormField(
                       autofocus: true,
                       decoration: InputDecoration(
-                      hintText: 'Artist Name',
+                      labelText: 'Artist Name',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(
@@ -125,12 +129,13 @@ class _AddMusicState extends State<AddMusic>{
                     controller: artistName,
                   ),
                 ),
+                //Music Link
                 Padding(
                     padding: EdgeInsets.only(left: 30, right: 30, top: 10),
                     child: TextFormField(
                       autofocus: true,
                       decoration: InputDecoration(
-                      hintText: 'Music Link',
+                      labelText: 'Music Link',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(
@@ -149,11 +154,30 @@ class _AddMusicState extends State<AddMusic>{
                     if(musicName.text.isNotEmpty &&
                         genre.text.isNotEmpty && artistName.text.isNotEmpty
                         && musicLink.text.isNotEmpty){
+                      List<String> musicNameSplit = musicName.text.split(" ");
+                      List<String> artistNameSplit = artistName.text.split(" ");
+                      List<String> musicSearch = [];
+                      List<String> artistSearch = [];
+
+                      for(int i = 0; i < musicNameSplit.length; i++){
+                        for(int k = 1; k < musicNameSplit[i].length + 1; k++){
+                          musicSearch.add(musicNameSplit[i].substring(0, k).toLowerCase());
+                        }
+                      }
+
+                      for(int i = 0; i < artistNameSplit.length; i++){
+                        for(int k = 1; k < artistNameSplit[i].length + 1; k++){
+                          artistSearch.add(artistNameSplit[i].substring(0, k).toLowerCase());
+                        }
+                      }
+
                       Firestore.instance.collection('Music').add({
                         "image" : image.text,
                         "musicName" : musicName.text,
+                        "musicSearch" : musicSearch,
                         "genre" : genre.text,
                         "artistName" : artistName.text,
+                        "artistSearch" : artistSearch,
                         "musicLink" : musicLink.text,
                         "likes": 0,
                         "id": uid

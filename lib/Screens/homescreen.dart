@@ -48,21 +48,20 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   Expanded(
-                      child: GestureDetector(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Account()));
-                        },
-                        child: Align(
-                            alignment: Alignment.topRight,
-                            child: Padding(
-                              padding: EdgeInsets.only(right: 20, top: 20),
-                              child: Icon(
-                                Icons.account_circle,
-                                size: 40,
-                              ),
-                            )),
-                      ))
-                ],
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 20, top: 20),
+                          child: IconButton(
+                            onPressed: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => Account()));
+                            },
+                            icon: Icon(Icons.account_circle),
+                            iconSize: 40,
+                            tooltip: 'Account',
+                          )
+                      )),
+                  )],
               ),
               SizedBox(height: 10,),
               StreamBuilder<QuerySnapshot>(
@@ -90,7 +89,7 @@ class _HomeState extends State<Home> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
-                                      FlatButton(
+                                      OutlineButton(
                                       onPressed: () async{
                                         Firestore.instance.runTransaction((transaction) async {
                                           DocumentSnapshot freshSnap =
@@ -109,7 +108,7 @@ class _HomeState extends State<Home> {
                                                   height: 100,
                                                   child: Column(
                                                     children: <Widget>[
-                                                      Text('You Liked the: ' + document['musicName']),
+                                                      Text('You Liked: ' + document['musicName']),
                                                       OutlineButton(
                                                         onPressed: (){
                                                           Navigator.pop(context);
@@ -132,7 +131,7 @@ class _HomeState extends State<Home> {
                                       ),
                                     ),
                                       SizedBox(width: 10,),
-                                      RaisedButton(
+                                      OutlineButton(
                                         onPressed: () => showDialog(
                                             context: context,
                                             child: new AlertDialog(
@@ -172,7 +171,12 @@ class _HomeState extends State<Home> {
                                               ),
                                             )
                                         ),
-                                        child: Text('More Info'),
+                                        child: Row(
+                                          children: <Widget>[
+                                            Icon(Icons.info),
+                                            Text('More Info')
+                                          ],
+                                        ),
                                       ),],
                                   ),
                                   Padding(
@@ -198,7 +202,7 @@ class _HomeState extends State<Home> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    FlatButton(
+                                    OutlineButton(
                                     onPressed: () async{
                                       Firestore.instance.runTransaction((transaction) async {
                                         DocumentSnapshot freshSnap =
@@ -217,7 +221,7 @@ class _HomeState extends State<Home> {
                                                 height: 100,
                                                 child: Column(
                                                   children: <Widget>[
-                                                    Text('You Liked the: ' + document['musicName']),
+                                                    Text('You Liked: ' + document['musicName']),
                                                     OutlineButton(
                                                       onPressed: (){
                                                         Navigator.pop(context);
@@ -240,7 +244,7 @@ class _HomeState extends State<Home> {
                                     ),
                                   ),
                                     SizedBox(width: 10,),
-                                    RaisedButton(
+                                    OutlineButton(
                                       onPressed: () => showDialog(
                                           context: context,
                                           child: new AlertDialog(
@@ -283,7 +287,12 @@ class _HomeState extends State<Home> {
                                             ),
                                           )
                                       ),
-                                      child: Text('More Info'),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(Icons.info),
+                                          Text('More Info')
+                                        ],
+                                      ),
                                     ),],
                                 ),
                                 Padding(
@@ -307,6 +316,7 @@ class _HomeState extends State<Home> {
             Navigator.push(context, MaterialPageRoute(builder: (context) => AddMusic()));
           },
           backgroundColor: Color.fromRGBO(0, 159, 175, 1),
+          tooltip: 'Add Music',
           label: Text(
             'Add Music',
             style: TextStyle(color: Colors.white),

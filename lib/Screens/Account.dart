@@ -5,10 +5,17 @@ import 'package:music_rater/Screens/About.dart';
 import 'package:music_rater/Screens/Privacy.dart';
 import 'package:music_rater/Screens/YourPosts.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../landing.dart';
 
-class Account extends StatelessWidget{
+class Account extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _AccountState();
+  }
+}
+
+class _AccountState extends State<Account>{
   var uid = '';
   @override
   Widget build(BuildContext context) {
@@ -106,14 +113,7 @@ class Account extends StatelessWidget{
                     child: Card(
                       elevation: 10,
                       child: ListTile(
-                        onTap: (){
-                          FirebaseAuth.instance.signOut().whenComplete(() {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) => Landing()));
-                          });
-                        },
+                        onTap: signOut,
                         leading: Icon(Icons.exit_to_app),
                         title: Text('Logout', style: GoogleFonts.googleSans(fontSize: 20),),
                         trailing: Icon(Icons.arrow_forward),
@@ -128,4 +128,13 @@ class Account extends StatelessWidget{
     );
   }
 
+  void signOut() async{
+    try{
+      await FirebaseAuth.instance.signOut();
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Landing()));
+    }
+    catch(e){
+      e.toString();
+    }
+  }
 }
