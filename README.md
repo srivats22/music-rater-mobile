@@ -1,17 +1,12 @@
-# music_rater
+# Music Rater
 
-An application for rating music, and finding new music
+An application for Sharing, Liking, and listening to Music
 
-## Getting Started
+# Available Platforms
+[Android](https://play.google.com/store/apps/details?id=com.app.music_rater), [iOS](https://music-rater22.web.app/), [Web](https://music-rater22.web.app/)
 
-This project is a starting point for a Flutter application.
+# Current Features
+- Add Music
+- Like Music
+- Listen to Music
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# music-rater-mobile
