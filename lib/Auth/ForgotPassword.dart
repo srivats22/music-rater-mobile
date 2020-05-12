@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:music_rater/landing.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class ForgotPassword extends StatefulWidget{
   @override
@@ -23,7 +22,7 @@ class _ForgotPasswordState extends State<ForgotPassword>{
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.black,
-          title: Text('Forgot Password', style: GoogleFonts.googleSans(),),
+          title: Text('Forgot Password', style: GoogleFonts.openSans(),),
         ),
         body: SingleChildScrollView(
             child: Center(

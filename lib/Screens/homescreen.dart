@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:music_rater/Screens/Account.dart';
@@ -15,17 +14,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  TextEditingController image, musicName, artistName, musicLink;
-  bool _isLiked = true;
-  @override
-  void initState() {
-    // TODO: implement initState
-    image = new TextEditingController();
-    musicName = new TextEditingController();
-    artistName = new TextEditingController();
-    musicLink = new TextEditingController();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +30,7 @@ class _HomeState extends State<Home> {
                     padding: EdgeInsets.only(left: 20, top: 20),
                     child: Text(
                       'Home',
-                      style: GoogleFonts.googleSans(
+                      style: GoogleFonts.openSans(
                           textStyle:
                           TextStyle(fontSize: 40)),
                     ),
@@ -84,7 +72,7 @@ class _HomeState extends State<Home> {
                                 children: <Widget>[
                                   Icon(Icons.album, size: 100, color: Colors.white,),
                                   SizedBox(height: 5,),
-                                  Text(document['musicName'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                  Text(document['musicName'], style: GoogleFonts.openSans(fontSize: 20),),
                                   SizedBox(height: 5,),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -126,7 +114,7 @@ class _HomeState extends State<Home> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: <Widget>[
                                           Icon(Icons.favorite, color: Colors.red,),
-                                          Text('Likes: ' + document['likes'].toString(), style: GoogleFonts.googleSans(fontSize: 20),),
+                                          Text('Likes: ' + document['likes'].toString(), style: GoogleFonts.openSans(fontSize: 20),),
                                         ],
                                       ),
                                     ),
@@ -142,11 +130,11 @@ class _HomeState extends State<Home> {
                                                       children: <Widget>[
                                                         Icon(Icons.album, size: 100,),
                                                         SizedBox(height: 5,),
-                                                        Text(document['musicName'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                                        Text(document['musicName'], style: GoogleFonts.openSans(fontSize: 20),),
                                                         SizedBox(height: 5,),
-                                                        Text(document['artistName'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                                        Text(document['artistName'], style: GoogleFonts.openSans(fontSize: 20),),
                                                         SizedBox(height: 5,),
-                                                        Text(document['genre'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                                        Text(document['genre'], style: GoogleFonts.openSans(fontSize: 20),),
                                                         SizedBox(height: 5,),
                                                         ButtonBar(
                                                           alignment: MainAxisAlignment.center,
@@ -188,7 +176,6 @@ class _HomeState extends State<Home> {
                             );
                           }
                           //image provided by  user
-                          var docId = snapshot.data;
                           return new Container(
                             child: new Column(
                               children: <Widget>[
@@ -197,7 +184,7 @@ class _HomeState extends State<Home> {
                                   radius: 50,
                                 ),
                                 SizedBox(height: 5,),
-                                Text(document['musicName'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                Text(document['musicName'], style: GoogleFonts.openSans(fontSize: 20),),
                                 SizedBox(height: 5,),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -239,7 +226,7 @@ class _HomeState extends State<Home> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
                                         Icon(Icons.favorite, color: Colors.red,),
-                                        Text('Likes: ' + document['likes'].toString(), style: GoogleFonts.googleSans(fontSize: 20),),
+                                        Text('Likes: ' + document['likes'].toString(), style: GoogleFonts.openSans(fontSize: 20),),
                                       ],
                                     ),
                                   ),
@@ -258,11 +245,11 @@ class _HomeState extends State<Home> {
                                                         radius: 50,
                                                       ),
                                                       SizedBox(height: 5,),
-                                                      Text(document['musicName'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                                      Text(document['musicName'], style: GoogleFonts.openSans(fontSize: 20),),
                                                       SizedBox(height: 5,),
-                                                      Text(document['artistName'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                                      Text(document['artistName'], style: GoogleFonts.openSans(fontSize: 20),),
                                                       SizedBox(height: 5,),
-                                                      Text(document['genre'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                                      Text(document['genre'], style: GoogleFonts.openSans(fontSize: 20),),
                                                       SizedBox(height: 5,),
                                                       ButtonBar(
                                                         alignment: MainAxisAlignment.center,

@@ -92,7 +92,7 @@ class _LandingState extends State<Landing> {
                   onPressed: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));
                   },
-                  child: Text('Forgot Password?', style: GoogleFonts.googleSans(),),
+                  child: Text('Forgot Password?', style: GoogleFonts.openSans(),),
                 ),
               )
             ],

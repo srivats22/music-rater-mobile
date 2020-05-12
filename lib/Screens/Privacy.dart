@@ -12,7 +12,7 @@ class Privacy extends StatelessWidget{
           backgroundColor: Colors.black,
           iconTheme: IconThemeData(color: Colors.white),
           centerTitle: true,
-          title: Text('Privacy', style: GoogleFonts.googleSans(),),
+          title: Text('Privacy', style: GoogleFonts.openSans(),),
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -24,7 +24,7 @@ class Privacy extends StatelessWidget{
                 child: Padding(padding: EdgeInsets.only(top: 30), child: Icon(Icons.security, size: 50,),),
               ),
               SizedBox(height: 10,),
-              Text('Privacy Policy', style: GoogleFonts.googleSans(textStyle: TextStyle(fontSize: 20)), textAlign: TextAlign.center,),
+              Text('Privacy Policy', style: GoogleFonts.openSans(textStyle: TextStyle(fontSize: 20)), textAlign: TextAlign.center,),
               SizedBox(height: 10,),
               Text('Entertainment Rater is an application where users can share music from anywhere in the world.'),
               Text('We have written this privacy policy in simple english terms, so you can get the important'
@@ -50,7 +50,7 @@ class Privacy extends StatelessWidget{
                             child: Text('When creating an account, you were required to enter'
                                 ' your email address, and choose a password. '
                                 'That is the only thing we ask of you.', textAlign: TextAlign.center,
-                              style: GoogleFonts.googleSans(textStyle: TextStyle(fontSize: 18)),),
+                              style: GoogleFonts.openSans(textStyle: TextStyle(fontSize: 18)),),
                           )
                         ],
                       ),
@@ -71,7 +71,7 @@ class Privacy extends StatelessWidget{
                               child: Text('When creating an account, you were required to enter'
                                   ' from that we can only see the email address you used'
                                   " while creating the account. We don't see the password you used", textAlign: TextAlign.center,
-                              style: GoogleFonts.googleSans(textStyle: TextStyle(fontSize: 18)),),
+                              style: GoogleFonts.openSans(textStyle: TextStyle(fontSize: 18)),),
                             )
                           ],
                         ),
@@ -89,7 +89,7 @@ class Privacy extends StatelessWidget{
                             Padding(
                               padding: EdgeInsets.only(left: 5, right: 5),
                               child: Text("Believe it or not, we don't see a need to share any information.", textAlign: TextAlign.center,
-                              style: GoogleFonts.googleSans(fontSize: 18),),
+                              style: GoogleFonts.openSans(fontSize: 18),),
                             )
                           ],
                         ),
@@ -109,7 +109,7 @@ class Privacy extends StatelessWidget{
                               child: Text("We don't send out any unnecessary emails. "
                                   "The only email you will recieve from us is, "
                                   "with regards to changing your password.", textAlign: TextAlign.center,
-                              style: GoogleFonts.googleSans(fontSize: 18),),
+                              style: GoogleFonts.openSans(fontSize: 18),),
                             )
                           ],
                         ),

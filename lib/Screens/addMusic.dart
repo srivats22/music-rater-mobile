@@ -29,7 +29,6 @@ class _AddMusicState extends State<AddMusic>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    var height = MediaQuery.of(context).size.height;
     var uid;
     FutureBuilder(
       future: FirebaseAuth.instance.currentUser(),
@@ -47,7 +46,7 @@ class _AddMusicState extends State<AddMusic>{
           centerTitle: true,
           backgroundColor: Colors.black,
           iconTheme: IconThemeData(color: Colors.white),
-          title: Text('Add Music', style: GoogleFonts.googleSans(),),
+          title: Text('Add Music', style: GoogleFonts.openSans(),),
         ),
         body: SingleChildScrollView(
           child: Center(
@@ -193,7 +192,7 @@ class _AddMusicState extends State<AddMusic>{
                             child: Column(
                               children: <Widget>[
                                 Text('Fields cannot be empty, please fix the error and try again',
-                                  style: GoogleFonts.googleSans(),),
+                                  style: GoogleFonts.openSans(),),
                                 SizedBox(height: 5,),
                                 OutlineButton(
                                   onPressed: (){

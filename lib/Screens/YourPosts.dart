@@ -42,7 +42,7 @@ class _YourPostsState extends State<YourPosts>{
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.black,
-          title: Text('Your Posts', style: GoogleFonts.googleSans(),),
+          title: Text('Your Posts', style: GoogleFonts.openSans(),),
         ),
         body: Container(
           height: MediaQuery.of(context).size.height,
@@ -58,7 +58,7 @@ class _YourPostsState extends State<YourPosts>{
 //                    return Text(
 //                      email,
 //                      textAlign: TextAlign.center,
-//                      style: GoogleFonts.googleSans(
+//                      style: GoogleFonts.openSans(
 //                          textStyle: TextStyle(fontSize: 40)),
 //                    );
 //                  }
@@ -84,7 +84,7 @@ class _YourPostsState extends State<YourPosts>{
                             children: <Widget>[
                               Icon(Icons.album, size: 100,),
                               SizedBox(height: 5,),
-                              Text(document['musicName'], style: GoogleFonts.googleSans(fontSize: 20),),
+                              Text(document['musicName'], style: GoogleFonts.openSans(fontSize: 20),),
                               SizedBox(height: 5,),
                               FlatButton(
                                 onPressed: (){
@@ -96,7 +96,7 @@ class _YourPostsState extends State<YourPosts>{
                                     });
                                   });
                                 },
-                                child: Text('Likes: ' + document['likes'].toString(), style: GoogleFonts.googleSans(fontSize: 20),),
+                                child: Text('Likes: ' + document['likes'].toString(), style: GoogleFonts.openSans(fontSize: 20),),
                               ),
                               SizedBox(height: 5,),
                               RaisedButton(
@@ -110,11 +110,11 @@ class _YourPostsState extends State<YourPosts>{
                                               children: <Widget>[
                                                 Icon(Icons.album, size: 100,),
                                                 SizedBox(height: 5,),
-                                                Text(document['musicName'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                                Text(document['musicName'], style: GoogleFonts.openSans(fontSize: 20),),
                                                 SizedBox(height: 5,),
-                                                Text(document['artistName'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                                Text(document['artistName'], style: GoogleFonts.openSans(fontSize: 20),),
                                                 SizedBox(height: 5,),
-                                                Text(document['genre'], style: GoogleFonts.googleSans(fontSize: 20),),
+                                                Text(document['genre'], style: GoogleFonts.openSans(fontSize: 20),),
                                                 SizedBox(height: 5,),
                                                 FloatingActionButton.extended(
                                                   heroTag: 'Play Music',

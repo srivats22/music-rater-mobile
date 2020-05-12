@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:music_rater/Screens/About.dart';
 import 'package:music_rater/Screens/Privacy.dart';
-import 'package:music_rater/Screens/YourPosts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../landing.dart';
 
@@ -25,7 +24,7 @@ class _AccountState extends State<Account>{
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.black,
-          title: Text('Account', style: GoogleFonts.googleSans(),),
+          title: Text('Account', style: GoogleFonts.openSans(),),
         ),
         body: SingleChildScrollView(
           child: Center(
@@ -43,7 +42,7 @@ class _AccountState extends State<Account>{
                       return Text(
                         email,
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.googleSans(
+                        style: GoogleFonts.openSans(
                             textStyle: TextStyle(fontSize: 40)),
                       );
                     }
@@ -59,7 +58,7 @@ class _AccountState extends State<Account>{
 //                          Navigator.push(context, MaterialPageRoute(builder: (context) => YourPosts()));
 //                        },
 //                        leading: Icon(Icons.list),
-//                        title: Text('Your Posts', style: GoogleFonts.googleSans(fontSize: 20),),
+//                        title: Text('Your Posts', style: GoogleFonts.openSans(fontSize: 20),),
 //                        trailing: Icon(Icons.arrow_forward),
 //                      ),
 //                    )
@@ -73,7 +72,7 @@ class _AccountState extends State<Account>{
                         Navigator.push(context, MaterialPageRoute(builder: (context) => Privacy()));
                       },
                       leading: Icon(Icons.security),
-                      title: Text('Privacy', style: GoogleFonts.googleSans(fontSize: 20),),
+                      title: Text('Privacy', style: GoogleFonts.openSans(fontSize: 20),),
                       trailing: Icon(Icons.arrow_forward),
                     ),
                   )
@@ -87,7 +86,7 @@ class _AccountState extends State<Account>{
                           Navigator.push(context, MaterialPageRoute(builder: (context) => About()));
                         },
                         leading: Icon(Icons.info),
-                        title: Text('About', style: GoogleFonts.googleSans(fontSize: 20),),
+                        title: Text('About', style: GoogleFonts.openSans(fontSize: 20),),
                         trailing: Icon(Icons.arrow_forward),
                       ),
                     )
@@ -103,7 +102,7 @@ class _AccountState extends State<Account>{
                           }
                         },
                         leading: Icon(Icons.email),
-                        title: Text('Contact', style: GoogleFonts.googleSans(fontSize: 20),),
+                        title: Text('Contact', style: GoogleFonts.openSans(fontSize: 20),),
                         trailing: Icon(Icons.arrow_forward),
                       ),
                     )
@@ -115,7 +114,7 @@ class _AccountState extends State<Account>{
                       child: ListTile(
                         onTap: signOut,
                         leading: Icon(Icons.exit_to_app),
-                        title: Text('Logout', style: GoogleFonts.googleSans(fontSize: 20),),
+                        title: Text('Logout', style: GoogleFonts.openSans(fontSize: 20),),
                         trailing: Icon(Icons.arrow_forward),
                       ),
                     )

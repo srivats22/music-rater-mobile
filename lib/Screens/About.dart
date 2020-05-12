@@ -22,7 +22,7 @@ class About extends StatelessWidget{
                   padding: EdgeInsets.only(top: 10),
                   child: Image.asset('assets/logo.png', scale: 5,),
                 ),
-                Text('About', style: GoogleFonts.googleSans(textStyle: TextStyle(fontSize: 30)),),
+                Text('About', style: GoogleFonts.openSans(textStyle: TextStyle(fontSize: 30)),),
                 Padding(
                   padding: EdgeInsets.only(left: 10, right: 10),
                   child: Text('Music is a universal language, and everyone listens to it amlost everyday. '
@@ -31,7 +31,7 @@ class About extends StatelessWidget{
                       'In order to make that simpler, Music Rater was created. '
                       "It's a free application where users can share any song that's on there mind, "
                       "and seemlesly other users will be able to see the song when they open the application.",
-                  style: GoogleFonts.googleSans(textStyle: TextStyle(fontSize: 20)),),
+                  style: GoogleFonts.openSans(textStyle: TextStyle(fontSize: 20)),),
                 )
               ],
             ),
