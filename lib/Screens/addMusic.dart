@@ -14,6 +14,13 @@ class AddMusic extends StatefulWidget{
 
 class _AddMusicState extends State<AddMusic>{
   TextEditingController image, musicName, genre, artistName, musicLink;
+  FirebaseUser currentUser;
+  String uid;
+
+  void getCurrentUser() async{
+    currentUser = await FirebaseAuth.instance.currentUser();
+    uid = currentUser.uid;
+  }
 
   @override
   void initState() {
@@ -23,59 +30,32 @@ class _AddMusicState extends State<AddMusic>{
     genre = new TextEditingController();
     artistName = new TextEditingController();
     musicLink = new TextEditingController();
+    this.getCurrentUser();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    var uid;
-    FutureBuilder(
-      future: FirebaseAuth.instance.currentUser(),
-      builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
-        if (snapshot.hasData) {
-          uid = snapshot.data.uid.toString();
-        }
-        return LinearProgressIndicator();
-      },
-    );
-
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.black,
-          iconTheme: IconThemeData(color: Colors.white),
-          title: Text('Add Music', style: GoogleFonts.openSans(),),
-        ),
         body: SingleChildScrollView(
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                //Album Cover
                 Padding(
-                  padding: EdgeInsets.only(left: 30, right: 30, top: 10),
-                  child: TextFormField(
-                    autofocus: true,
-                    decoration: InputDecoration(
-                      labelText: 'Album Cover (Optional)',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(
-                            width: 0,
-                            style: BorderStyle.none,
-                            color: Colors.white
-                        ),
-                      ),
-                    ),
-                    controller: image,
+                  padding: EdgeInsets.only(top: 30),
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Text('Add Music', style: GoogleFonts.openSans(fontSize: 30),),
                   ),
                 ),
                 //Music Name
                 Padding(
                     padding: EdgeInsets.only(left: 30, right: 30, top: 10),
                     child: TextFormField(
+                      autofocus: true,
                       decoration: InputDecoration(
                       labelText: 'Music Name',
                       border: OutlineInputBorder(
@@ -171,7 +151,6 @@ class _AddMusicState extends State<AddMusic>{
                       }
 
                       Firestore.instance.collection('Music').add({
-                        "image" : image.text,
                         "musicName" : musicName.text,
                         "musicSearch" : musicSearch,
                         "genre" : genre.text,
@@ -179,7 +158,8 @@ class _AddMusicState extends State<AddMusic>{
                         "artistSearch" : artistSearch,
                         "musicLink" : musicLink.text,
                         "likes": 0,
-                        "id": uid
+                        "posted_on" : FieldValue.serverTimestamp(),
+                        "id": uid.toString()
                       }).then((result) => Navigator.push(context, MaterialPageRoute(builder: (context) => Home())));
                     }
                     else{

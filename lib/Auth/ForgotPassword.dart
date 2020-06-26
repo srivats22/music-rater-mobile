@@ -33,7 +33,7 @@ class _ForgotPasswordState extends State<ForgotPassword>{
                     padding: EdgeInsets.only(top: 50),
                     child: Text('Forgot Password? No issues', style: GoogleFonts.robotoMono(),),
                   ),
-                  Text('Fill out the form below and your all set', style: GoogleFonts.robotoMono(),),
+                  Text('Fill out the form below', style: GoogleFonts.robotoMono(),),
                   Padding(
                     padding: EdgeInsets.only(left: 50, right: 50),
                     child: Form(

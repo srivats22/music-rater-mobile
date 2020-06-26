@@ -26,9 +26,12 @@ class Privacy extends StatelessWidget{
               SizedBox(height: 10,),
               Text('Privacy Policy', style: GoogleFonts.openSans(textStyle: TextStyle(fontSize: 20)), textAlign: TextAlign.center,),
               SizedBox(height: 10,),
-              Text('Entertainment Rater is an application where users can share music from anywhere in the world.'),
-              Text('We have written this privacy policy in simple english terms, so you can get the important'
-                  'information easily'),
+              Padding(
+                padding: EdgeInsets.only(left: 20, right: 20),
+                child: Text('Music Rater is an Application, where users can share music for free. We have written this privacy policy'
+                    ' in simple english terms, so get the important information easily.', textAlign: TextAlign.justify,
+                style: GoogleFonts.openSans(fontSize: 15),),
+              ),
           Container(
             margin: EdgeInsets.symmetric(vertical: 20.0),
             height: 200.0,
