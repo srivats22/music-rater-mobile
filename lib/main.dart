@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:music_rater/Screens/homescreen.dart';
 import 'package:music_rater/landing.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'Screens/Navigation.dart';
 
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
         brightness: Brightness.dark
       ),
-      darkTheme: ThemeData.dark(),
+//      themeMode: ThemeMode.system,
+//      darkTheme: ThemeData.dark(),
       home: _getLandingPage(),
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: analytics),

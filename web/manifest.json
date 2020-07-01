@@ -2,22 +2,24 @@
     "name": "Music Rater",
     "short_name": "Music Rater",
     "start_url": ".",
-    "display": "minimal-ui",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#000000",
     "description": "An application for rating music, and finding new music",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
         {
-            "src": "icons/logo.png",
+            "src": "icons/logo192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         },
         {
-            "src": "icons/logo.png",
+            "src": "icons/logo512.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         }
     ]
 }

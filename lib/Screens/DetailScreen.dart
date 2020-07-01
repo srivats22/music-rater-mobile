@@ -47,133 +47,95 @@ class _DetailScreenState extends State<DetailScreen>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    if(MediaQuery.of(context).size.width < 600){
-      return SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: Colors.black,
-            title: Text(widget.musicName, style: GoogleFonts.roboto(),),
-          ),
-          body: Center(
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: Stack(
-                    alignment: Alignment.topCenter,
-                    children: [
-                      Transform.translate(
-                        offset: Offset(0, 50),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * .95,
-//                          height: MediaQuery.of(context).size.height * .25,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
-                          ),
-                          child: Center(
-                              child: Padding(
-                                padding: EdgeInsets.only(top: 40),
-                                child: Column(
-                                  children: [
-                                    Text(widget.musicName, style: GoogleFonts.robotoMono(color: Colors.black),),
-                                    Text(widget.artistName, style: GoogleFonts.robotoMono(color: Colors.black),),
-                                    Text(widget.genre, style: GoogleFonts.robotoMono(color: Colors.black),),
-                                    RaisedButton(
-                                      onPressed: (){
-                                        if(canLaunch(widget.musicUrl) != null){
-                                          launch(widget.musicUrl);
-                                        }
-                                      },
-                                      child: Text('Listen'),
-                                    ),
-                                  ],
-                                ),
-                              )
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 80.0,
-                        height: 80.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.elliptical(40.0, 40.0)),
-                          color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey[100],
-                                offset: Offset(0, 3),
-                                blurRadius: 3,
-                              ),]
-                        ),
-                        child: Icon(Icons.music_note, size: 30, color: Colors.black,),
-                      ),
-                    ],
-                  ),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.black,
+          title: Text(widget.musicName, style: GoogleFonts.roboto(),),
+        ),
+        body: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: Column(
+                  children: [
+                    Icon(Icons.music_note, color: Colors.white, size: 30,),
+                    Text(widget.musicName, style: GoogleFonts.robotoMono(color: Colors.white),),
+                    Text(widget.artistName, style: GoogleFonts.robotoMono(color: Colors.white),),
+                    Text(widget.genre, style: GoogleFonts.robotoMono(color: Colors.white),),
+                    RaisedButton(
+                      onPressed: (){
+                        if(canLaunch(widget.musicUrl) != null){
+                          launch(widget.musicUrl);
+                        }
+                      },
+                      child: Text('Listen'),
+                      color: Colors.teal,
+                    ),
+                  ],
                 ),
-                Transform.translate(
-                  offset: Offset(0, 60),
-                  child: Column(
-                    children: [
-                      Divider(
-                        indent: 20,
-                        endIndent: 20,
-                        thickness: .5,
-                        color: Colors.white,
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height - 258,
-                        child: StreamBuilder<QuerySnapshot>(
-                          stream: Firestore.instance.collection('MusicTestDB')
-                          .document(widget.musicID).collection('rating').snapshots(),
-                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
-                            if(!snapshot.hasData){
-                              return Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                            if(snapshot.data.documentChanges.isEmpty){
-                              return Center(
-                                child: Text('No Ratings yet'),
-                              );
-                            }
-                            return ListView.builder(
-                              itemCount: snapshot.data.documents.length,
-                                itemBuilder: (context, index){
-                                  DocumentSnapshot data = snapshot.data.documents[index];
-                                  return Column(
-                                    children: [
-                                      SizedBox(
-                                        width: MediaQuery.of(context).size.width * .90,
-                                        child: Card(
-                                          elevation: 10,
-                                          child: ListTile(
-                                            isThreeLine: true,
-                                            leading: Icon(Icons.star),
-                                            title: Text(data['name']),
-                                            subtitle: Text(data['comment'] + "\nRating: " + data['rating'] +
-                                                "\n" + timeago.format(DateTime.tryParse(data['timeStamp'].toDate().toString())).toString()),
-                                          ),
-                                        )
-                                      )
-                                    ],
-                                  );
-                                }
-                            );
-                          },
-                        ),
-                      )
-                    ],
+              ),
+              Column(
+                children: [
+                  Divider(
+                    indent: 20,
+                    endIndent: 20,
+                    thickness: .5,
+                    color: Colors.white,
                   ),
-                )
-              ],
-            ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height - 258,
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: Firestore.instance.collection('MusicTestDB')
+                          .document(widget.musicID).collection('rating').snapshots(),
+                      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+                        if(!snapshot.hasData){
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        if(snapshot.data.documentChanges.isEmpty){
+                          return Center(
+                            child: Text('No Ratings yet'),
+                          );
+                        }
+                        return ListView.builder(
+                            itemCount: snapshot.data.documents.length,
+                            itemBuilder: (context, index){
+                              DocumentSnapshot data = snapshot.data.documents[index];
+                              return Column(
+                                children: [
+                                  SizedBox(
+                                      width: MediaQuery.of(context).size.width * .90,
+                                      child: Card(
+                                        elevation: 10,
+                                        child: ListTile(
+                                          isThreeLine: true,
+                                          leading: Icon(Icons.star),
+                                          title: Text(data['name']),
+                                          subtitle: Text(data['comment'] + "\nRating: " + data['rating'] +
+                                              "\n" + timeago.format(DateTime.tryParse(data['timeStamp'].toDate().toString())).toString()),
+                                        ),
+                                      )
+                                  )
+                                ],
+                              );
+                            }
+                        );
+                      },
+                    ),
+                  )
+                ],
+              )
+            ],
           ),
-          floatingActionButton: FloatingActionButton.extended(
-            onPressed: (){
-              showDialog(
-                  context: (context),
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: (){
+            showDialog(
+                context: (context),
                 child: AlertDialog(
                   content: Container(
                     height: 200,
@@ -182,7 +144,7 @@ class _DetailScreenState extends State<DetailScreen>{
                         startRating(),
                         TextFormField(
                           decoration: InputDecoration(
-                            hintText: "Comments"
+                              hintText: "Comments"
                           ),
                           maxLength: 256,
                           controller: comment,
@@ -206,15 +168,14 @@ class _DetailScreenState extends State<DetailScreen>{
                     ),
                   ),
                 )
-              );
-            },
-            label: Text('Rate'),
-            icon: Icon(Icons.star),
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+            );
+          },
+          label: Text('Rate'),
+          icon: Icon(Icons.star),
         ),
-      );
-    }
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      ),
+    );
   }
 
   Widget startRating(){

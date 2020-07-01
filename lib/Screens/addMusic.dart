@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:music_rater/Screens/Navigation.dart';
 import 'package:music_rater/Screens/homescreen.dart';
 
 class AddMusic extends StatefulWidget{
@@ -19,7 +20,9 @@ class _AddMusicState extends State<AddMusic>{
 
   void getCurrentUser() async{
     currentUser = await FirebaseAuth.instance.currentUser();
-    uid = currentUser.uid;
+    setState(() {
+      uid = currentUser.uid;
+    });
   }
 
   @override
@@ -157,10 +160,9 @@ class _AddMusicState extends State<AddMusic>{
                         "artistName" : artistName.text,
                         "artistSearch" : artistSearch,
                         "musicLink" : musicLink.text,
-                        "likes": 0,
                         "posted_on" : FieldValue.serverTimestamp(),
                         "id": uid.toString()
-                      }).then((result) => Navigator.push(context, MaterialPageRoute(builder: (context) => Home())));
+                      }).then((value) => Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (context) => Navigation())));
                     }
                     else{
                       showDialog(

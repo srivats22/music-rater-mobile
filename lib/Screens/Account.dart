@@ -24,15 +24,19 @@ class _AccountState extends State<Account>{
     // TODO: implement build
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.black,
-          title: Text('Account', style: GoogleFonts.openSans(),),
-        ),
+//        appBar: AppBar(
+//          centerTitle: true,
+//          backgroundColor: Colors.black,
+//          title: Text('Account', style: GoogleFonts.openSans(),),
+//        ),
         body: SingleChildScrollView(
           child: Center(
             child: Column(
               children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: 30),
+                  child: Text('Account', style: GoogleFonts.openSans(fontSize: 30),),
+                ),
                 Padding(
                   padding: EdgeInsets.only(top: 30),
                   child: Icon(Icons.person_outline, size: 100,),
