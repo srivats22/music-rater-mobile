@@ -14,7 +14,7 @@ description: An application for rating music, and finding new music
 version: 1.0.1+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.11.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -34,6 +34,8 @@ dependencies:
   firebase_analytics: ^5.0.11
   smooth_star_rating: 1.1.1
   timeago: ^2.0.26
+  universal_platform: ^0.1.3
+  paginate_firestore:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

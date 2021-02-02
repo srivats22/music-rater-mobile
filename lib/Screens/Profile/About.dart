@@ -8,9 +8,8 @@ class About extends StatelessWidget{
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black,
           centerTitle: true,
-          title: Text('About'),
+          title: Text('About', style: TextStyle(color: Colors.black),),
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,

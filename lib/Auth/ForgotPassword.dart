@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:music_rater/landing.dart';
+import 'package:music_rater/Auth/Login.dart';
 
 class ForgotPassword extends StatefulWidget{
   @override
@@ -74,23 +74,26 @@ class _ForgotPasswordState extends State<ForgotPassword>{
         await FirebaseAuth.instance.sendPasswordResetEmail(email: _email);
         showDialog<String>(
             context: context,
-            child:AlertDialog(
-              contentPadding: const EdgeInsets.all(16.0),
-              content: Container(
-                height: 100,
-                child: Column(
-                  children: <Widget>[
-                    Text("Email with link has been sent, don't forget to check your spam"),
-                    OutlineButton(
-                      onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Landing()));
-                      },
-                      child: Text('Go Back'),
-                    )
-                  ],
-                )
-              )
-            ));
+            builder: (context){
+              return AlertDialog(
+                  contentPadding: const EdgeInsets.all(16.0),
+                  content: Container(
+                      height: 100,
+                      child: Column(
+                        children: <Widget>[
+                          Text("Email with link has been sent, don't forget to check your spam"),
+                          OutlineButton(
+                            onPressed: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+                            },
+                            child: Text('Go Back'),
+                          )
+                        ],
+                      )
+                  )
+              );
+            }
+        );
       } catch (e) {
         print(e);
       }

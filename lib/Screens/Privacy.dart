@@ -9,10 +9,8 @@ class Privacy extends StatelessWidget{
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black,
-          iconTheme: IconThemeData(color: Colors.white),
           centerTitle: true,
-          title: Text('Privacy', style: GoogleFonts.openSans(),),
+          title: Text('Privacy', style: TextStyle(color: Colors.black)),
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,

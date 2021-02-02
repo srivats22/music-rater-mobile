@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:music_rater/Screens/Account.dart';
-import 'package:music_rater/Screens/addMusic.dart';
+import 'package:music_rater/Screens/PostRelated/addMusic.dart';
+import 'package:music_rater/Screens/Profile/Account.dart';
 import 'package:music_rater/Screens/homescreen.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 class Navigation extends StatefulWidget{
 
@@ -20,34 +20,38 @@ class _NavigationState extends State<Navigation> {
     Account()
   ];
 
+  void _onItemTap(int index){
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     //Viewing on mobile
-    if(MediaQuery.of(context).size.width < 600){
+    if(UniversalPlatform.isAndroid || MediaQuery.of(context).size.width < 600){
       return SafeArea(
         child: Scaffold(
           body: _selectedPage[_selectedIndex],
           bottomNavigationBar: BottomNavigationBar(
             backgroundColor: Colors.white,
-            onTap: (int index){
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-            type: BottomNavigationBarType.fixed,
+            currentIndex: _selectedIndex,
+            onTap: _onItemTap,
             items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home, color: Colors.black,),
-                title: Text("Home", style: GoogleFonts.robotoMono(color: Colors.black),)
+                icon: Icon(Icons.music_note_outlined, color: Colors.grey,),
+                activeIcon: Icon(Icons.music_note, color: Colors.teal,),
+                label: "Songs"
               ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.add, color: Colors.black,),
-                  title: Text("Add Music", style: GoogleFonts.robotoMono(color: Colors.black))
+                  icon: Icon(Icons.add_outlined, color: Colors.grey,),
+                  activeIcon: Icon(Icons.add, color: Colors.teal,),
+                  label: "Add Song"
               ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person_outline, color: Colors.black,),
-                  title: Text("Account", style: GoogleFonts.robotoMono(color: Colors.black))
+                  icon: Icon(Icons.person_outline, color: Colors.grey,),
+                  activeIcon: Icon(Icons.person, color: Colors.teal,),
+                  label: "Account"
               )
             ],
           ),
@@ -91,16 +95,19 @@ class _NavigationState extends State<Navigation> {
               selectedLabelTextStyle: TextStyle(color: Colors.teal),
               destinations: [
                 NavigationRailDestination(
-                  icon: Icon(Icons.home),
-                  label: Text("Home", style: GoogleFonts.robotoMono(),)
+                  icon: Icon(Icons.music_note_outlined),
+                  selectedIcon: Icon(Icons.music_note),
+                  label: Text("Songs")
                 ),
                 NavigationRailDestination(
-                    icon: Icon(Icons.add),
-                    label: Text("Add Music", style: GoogleFonts.robotoMono(),)
+                    icon: Icon(Icons.add_outlined),
+                    selectedIcon: Icon(Icons.add),
+                    label: Text("Add Song")
                 ),
                 NavigationRailDestination(
                     icon: Icon(Icons.person_outline),
-                    label: Text("Account", style: GoogleFonts.robotoMono(),)
+                    selectedIcon: Icon(Icons.person),
+                    label: Text("Account")
                 ),
               ],
             ),

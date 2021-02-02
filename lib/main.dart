@@ -1,18 +1,13 @@
-import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:music_rater/Screens/homescreen.dart';
-import 'package:music_rater/landing.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-
-import 'Screens/Navigation.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:music_rater/Auth/Login.dart';
+import 'package:music_rater/Screens/Navigation.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  FirebaseAnalytics analytics = FirebaseAnalytics();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,14 +15,13 @@ class MyApp extends StatelessWidget {
       title: 'Music Rater',
       theme: ThemeData(
         primarySwatch: Colors.teal,
-        brightness: Brightness.dark
+        accentColor: Colors.tealAccent,
+        textTheme: GoogleFonts.openSansTextTheme(),
+        appBarTheme: AppBarTheme(color: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 0)
       ),
-//      themeMode: ThemeMode.system,
-//      darkTheme: ThemeData.dark(),
       home: _getLandingPage(),
-      navigatorObservers: [
-        FirebaseAnalyticsObserver(analytics: analytics),
-      ],
     );
   }
 }
@@ -45,7 +39,7 @@ Widget _getLandingPage() {
           return Navigation();
         }
       } else {
-        return Landing();
+        return Login();
       }
     },
   );
